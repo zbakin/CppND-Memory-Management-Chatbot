@@ -42,11 +42,63 @@ ChatBot::~ChatBot()
     }
 }
 
-//// STUDENT CODE
-////
+// copy constructor - deep copy
+ChatBot::ChatBot(const ChatBot &otherInstance) {
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    _image = new wxBitmap(*otherInstance._image);
+    *_image = *otherInstance._image; // copying the image data
+    _currentNode = otherInstance._currentNode;
+    _rootNode = otherInstance._rootNode;
+    _chatLogic = otherInstance._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+}
 
-////
-//// EOF STUDENT CODE
+// copy assignment
+ChatBot& ChatBot::operator=(const ChatBot& otherInstance) {
+    std::cout << "ChatBot Copy Assignment operator" << std::endl;
+    if (this == &otherInstance)
+       return *this;
+    delete _image;
+    _image = new wxBitmap(*otherInstance._image);
+    *_image = *otherInstance._image; // copying the image data
+    _currentNode = otherInstance._currentNode;
+    _rootNode = otherInstance._rootNode;
+    _chatLogic = otherInstance._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    return *this;
+}
+
+// move contructor
+ChatBot::ChatBot(ChatBot&& otherInstance) {
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    _image = otherInstance._image;
+    _currentNode = otherInstance._currentNode;
+    _rootNode = otherInstance._rootNode;
+    _chatLogic = otherInstance._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    otherInstance._image = NULL;
+    otherInstance._chatLogic = nullptr;
+    otherInstance._rootNode = nullptr;
+    otherInstance._currentNode = nullptr;
+}
+
+// move assignment
+ChatBot& ChatBot::operator=(ChatBot&& otherInstance) {
+    std::cout << "ChatBot Move Assignment operator" << std::endl;
+    if (this == &otherInstance)
+       return *this;
+    delete _image;
+    _image = otherInstance._image;
+    _currentNode = otherInstance._currentNode;
+    _rootNode = otherInstance._rootNode;
+    _chatLogic = otherInstance._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    otherInstance._image = NULL;
+    otherInstance._currentNode = nullptr;
+    otherInstance._rootNode = nullptr;
+    otherInstance._chatLogic = nullptr;
+    return *this;
+}
 
 void ChatBot::ReceiveMessageFromUser(std::string message)
 {
