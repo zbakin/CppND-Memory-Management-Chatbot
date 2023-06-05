@@ -11,7 +11,7 @@
 #include "chatbot.h"
 #include "chatlogic.h"
 
- 
+
 ChatLogic::ChatLogic() {}
 
 ChatLogic::~ChatLogic() {}
