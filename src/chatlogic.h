@@ -9,7 +9,7 @@
 class ChatBot;
 class GraphEdge;
 class GraphNode;
- 
+
 class ChatLogic
 {
 private:
